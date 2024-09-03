@@ -8,9 +8,9 @@ const Navbar = () => {
   return (
     <nav className="flex justify-between py-5 px-32 text-3xl bg-salte-200">
       <ul className="flex justify-center items-center gap-10 ">
-        <li className="cursor-pointer hover:shadow-md hover:bg-slate-200 px-2 py-1 rounded-lg">Home</li>
-        <li className="cursor-pointer hover:shadow-md hover:bg-slate-200 px-2 py-1 rounded-lg">About</li>
-        <li className="cursor-pointer hover:shadow-md hover:bg-slate-200 px-2 py-1 rounded-lg">Blogs</li>
+        <a href='/' className="cursor-pointer hover:shadow-md hover:bg-slate-200 px-2 py-1 rounded-lg">Home</a>
+        <a href="/about" className="cursor-pointer hover:shadow-md hover:bg-slate-200 px-2 py-1 rounded-lg">About</a>
+        <a href="/blogs" className="cursor-pointer hover:shadow-md hover:bg-slate-200 px-2 py-1 rounded-lg">Blogs</a>
       </ul>
       <h1 href="/" className="text-6xl font-light tracking-tighter leading-none font-sans cursor-pointer">
         Let's<span className="font-extrabold">TALK</span>
