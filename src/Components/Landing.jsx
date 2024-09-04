@@ -13,7 +13,7 @@ const Landing = () => {
             everything in between. Discover new ideas, learn something new, and
             find inspiration in every post.
           </p>
-          <a href="#AddBlog" onMouseOver={()=>sethoverblog(true)} onMouseLeave={()=>sethoverblog(false)} className="hover:shadow-md hover:text-4xl transition-all rounded-lg  flex justify-center items-center gap-2 bg-gradient-to-tr from-yellow-100 to-yellow-200 px-2 py-1 mt-20 text-3xl">
+          <a href="#AddBlog" onMouseOver={()=>sethoverblog(true)} onMouseLeave={()=>sethoverblog(false)} className="w-96  hover:shadow-md hover:text-2xl transition-all rounded-lg  flex justify-center items-center gap-2 bg-gradient-to-tr from-yellow-100 to-yellow-200 px-2 py-1 mt-20 text-xl">
             Create your first Blog Now{" "}
             <span>
               <FaArrowRight className={hoverblog && " rotate-90 transition-all text-4xl" } />
