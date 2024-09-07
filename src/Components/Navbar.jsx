@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
+import { RiShutDownLine } from "react-icons/ri";
 
 const Navbar = () => {
   let LoggedIn;
@@ -47,12 +48,13 @@ const Navbar = () => {
             type="text"
           />
         </div>
+        {Username && LoggedIn && <h1>{Username}</h1>}
         {LoggedIn ? (
           <button
             className="bg-gradient-to-bl from-blue-400 to-blue-600 px-2 py-1 font-bold shadow-xl text-white rounded-lg"
             onClick={signout}
           >
-            Logout
+            <RiShutDownLine />
           </button>
         ) : (
           <a
@@ -62,7 +64,7 @@ const Navbar = () => {
             Login
           </a>
         )}
-        {Username && LoggedIn && <h1>{Username}</h1>}
+        
       </div>
     </nav>
   );

@@ -46,7 +46,14 @@ const AddBlog = () => {
           blog,
         })
         .then((response) => {
-          console.log(response.data);
+          alert(response.data);
+          setName("");
+          setEmail("");
+          setBlog("")
+          setTitle("")
+          setimage(null)
+          setimageurl("")
+          window.location.reload()
         });
     } catch (error) {
       console.error(error);
@@ -61,7 +68,7 @@ const AddBlog = () => {
         action=""
       >
         <div className="input grid grid-cols-3">
-          <label htmlFor="">Name : </label>
+          <label className="text-4xl" htmlFor="">Name : </label>
           <input
             className="text-2xl px-3 py-2 col-span-2 rounded-lg outline-none"
             type="text"

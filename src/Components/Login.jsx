@@ -22,6 +22,7 @@ const Login = () => {
                 window.localStorage.setItem("UserName",UserName)
                 
                 navigate('/')
+                window.location.reload()
             }
             console.log(response)})
         .catch((error)=>console.error(error))

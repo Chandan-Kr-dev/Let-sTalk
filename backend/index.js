@@ -88,10 +88,10 @@ app.post("/api/login", async (req, res) => {
   }
 });
 
-app.post("/api/addblogs", (req,res) => {
-  const { Name, Email, imageurl, Title, blog } = req.body
+app.post("/api/addblogs", (req, res) => {
+  const { Name, Email, imageurl, Title, blog } = req.body;
   // console.log(req.body);
-   Blog.create({
+  Blog.create({
     Name: Name,
     Email,
     Image: imageurl,
@@ -99,7 +99,17 @@ app.post("/api/addblogs", (req,res) => {
     blog: blog,
   })
     .then(() => res.json("Blog created succesfully"))
-    .catch((err) => res.json(err))
+    .catch((err) => res.json("Server Error: " + err.message));
+});
+
+app.get("/api/blogs", async (req, res) => {
+  try {
+    await Blog.find()
+      .then((blogs) => res.json(blogs))
+      .catch((err) => res.json(err));
+  } catch (error) {
+    res.status(500).json("Erro with the server : ",error)
+  }
 });
 
 app.get("/", (req, res) => {
