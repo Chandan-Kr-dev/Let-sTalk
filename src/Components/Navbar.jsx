@@ -39,15 +39,7 @@ const Navbar = () => {
         Let's<span className="font-extrabold">TALK</span>
       </h1>
       <div className="flex justify-center items-center gap-3">
-        <div className="search flex justify-center items-center border-2 rounded-full p-2">
-          <p className="text-4xl">
-            <CiSearch />
-          </p>
-          <input
-            className="bg-transparent text-black outline-none px-2 w-44 "
-            type="text"
-          />
-        </div>
+       
         {Username && LoggedIn && <h1>{Username}</h1>}
         {LoggedIn ? (
           <button
@@ -64,6 +56,7 @@ const Navbar = () => {
             Login
           </a>
         )}
+
         
       </div>
     </nav>

@@ -99,7 +99,7 @@ app.post("/api/addblogs", (req, res) => {
     blog: blog,
   })
     .then(() => res.json("Blog created succesfully"))
-    .catch((err) => res.json("Server Error: " + err.message));
+    .catch((err) => res.json("Server Error: " + err.message))
 });
 
 app.get("/api/blogs", async (req, res) => {
@@ -111,6 +111,18 @@ app.get("/api/blogs", async (req, res) => {
     res.status(500).json("Erro with the server : ",error)
   }
 });
+
+app.get('/api/blog/:id',(req,res)=>{
+  console.log(req.params.id);
+  Blog.findById(req.params.id).then((blog)=>{
+    if(!blog) return res.status(404).json({message:'Blog not found'})
+    res.json(blog)
+  }).catch((err)=>res.status(500).json({message:'Server Error'}))
+})
+
+app.post('/api/comments',(req,res)=>{
+  const {Name, blogId, comment } = req.body;
+})
 
 app.get("/", (req, res) => {
   res.send("App Working !!!");

@@ -19,10 +19,10 @@ const Card = (props) => {
         <span className="font-light ">{props.date}-</span><span>{props.message}</span>
       </p>
       <div className="flex flex-col mt-5 gap-10">
-        <a href="#" className="  py-1 rounded-lg font-semibold">
+        <a href="/blogs" className="  py-1 rounded-lg font-semibold">
           Read More...
         </a>
-        <a href="#">Comments..</a>
+        <a href="/blogs">Comments..</a>
       </div>
     </div>
   );
