@@ -7,10 +7,7 @@ const TopBlogs = () => {
     return str.length > len ? str.substr(0, len - 3) + "..." : str;
   }
 
-  const longString = "This is a very long string that needs to be truncated jqbuirgbqugbrjnvaNLvanlvjba vahiorfhainklmweelkqpojqfpihiophrqubj vavbjk.";
-  const truncatedString = truncateString(longString, 100);
-  console.log(truncatedString);
-
+  
   const [blogs, setblogs] = useState([]);
   const fetchdata = async () => {
     await axios.get(`${import.meta.env.VITE_DEV_URL}api/blogs`).then((res) => {

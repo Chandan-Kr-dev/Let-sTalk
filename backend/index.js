@@ -6,6 +6,7 @@ import bcrypt from "bcryptjs";
 import { User } from "./models/user.models.js";
 
 import { Blog } from "./models/Blog.models.js";
+import { Comment } from "./models/Comment.models.js";
 
 const app = express();
 const port = 3000;
@@ -99,7 +100,7 @@ app.post("/api/addblogs", (req, res) => {
     blog: blog,
   })
     .then(() => res.json("Blog created succesfully"))
-    .catch((err) => res.json("Server Error: " + err.message))
+    .catch((err) => res.json("Server Error: " + err.message));
 });
 
 app.get("/api/blogs", async (req, res) => {
@@ -108,21 +109,45 @@ app.get("/api/blogs", async (req, res) => {
       .then((blogs) => res.json(blogs))
       .catch((err) => res.json(err));
   } catch (error) {
-    res.status(500).json("Erro with the server : ",error)
+    res.status(500).json("Erro with the server : ", error);
   }
 });
 
-app.get('/api/blog/:id',(req,res)=>{
+app.post("/api/blog/:id", (req, res) => {
   console.log(req.params.id);
-  Blog.findById(req.params.id).then((blog)=>{
-    if(!blog) return res.status(404).json({message:'Blog not found'})
-    res.json(blog)
-  }).catch((err)=>res.status(500).json({message:'Server Error'}))
+
+  try {
+    Blog.findById(req.params.id)
+      .then((blog) => {
+        res.json(blog);
+      })
+      .catch((err) => res.json(err));
+  } catch (error) {
+    res.status(500).json("Erro with the server : ", error);
+  }
+});
+
+app.post("/api/comments", (req, res) => {
+  const { BlogId, Name, comment } = req.body;
+  console.log(req.body)
+  Comment.create({ Name, BlogId, Comment: comment })
+    .then(() => {
+      res.json("Comment created succesfully");
+    })
+    .catch((err) => res.json(err));
+});
+
+app.get('/api/getComments',(req,res)=>{
+  Comment.find()
+  .then((comment)=>{
+    res.json(comment)
+  })
+  .catch((err)=>{
+    res.json(err)
+  })
 })
 
-app.post('/api/comments',(req,res)=>{
-  const {Name, blogId, comment } = req.body;
-})
+
 
 app.get("/", (req, res) => {
   res.send("App Working !!!");
