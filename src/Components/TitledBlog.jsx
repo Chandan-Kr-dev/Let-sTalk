@@ -67,7 +67,7 @@ const TitledBlog = () => {
   return (
     <main className="bg-gradient-to-br from-slate-100 to-slate-200 px-80  ">
       <div className=" space-y-10  pt-20">
-        <h1 className="text-center font-bold text-5xl">{blogs.BlogTitle}</h1>
+        <h1 className="text-center font-bold text-5xl font-Space_Grotesk">{blogs.BlogTitle}</h1>
         <img
           className="object-contain rounded-lg w-[800px] ml-56"
           src={blogs.Image}

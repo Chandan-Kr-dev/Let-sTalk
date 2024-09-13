@@ -40,7 +40,7 @@ const Navbar = () => {
       </h1>
       <div className="flex justify-center items-center gap-3">
        
-        {Username && LoggedIn && <h1>{Username}</h1>}
+        {Username && LoggedIn && <h1>Hello! {Username}</h1>}
         {LoggedIn ? (
           <button
             className="bg-gradient-to-bl from-blue-400 to-blue-600 px-2 py-1 font-bold shadow-xl text-white rounded-lg"

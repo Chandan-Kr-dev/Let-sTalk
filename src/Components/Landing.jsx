@@ -7,7 +7,7 @@ const Landing = () => {
     <section className="h-[80vh] w-full bg-gradient-to-br from-slate-100 to-slate-200 px-20">
       <div className="flex justify-center items-center h-[80%] w-full ">
         <div className="left  h-full w-[50%] py-52">
-          <h1 className="text-8xl ">Let's Talk </h1>
+          <h1 className="text-8xl font-Space_Grotesk tracking-tighter">Let's Talk </h1>
           <p className="text-2xl mt-10 tracking-tight w-[80%]">
             Dive into a world of diverse topics, from technology to travel and
             everything in between. Discover new ideas, learn something new, and

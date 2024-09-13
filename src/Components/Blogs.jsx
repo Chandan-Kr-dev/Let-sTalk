@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import TitledBlog from "./TitledBlog";
+import moment from 'moment';
 
 const Blogs = () => {
   const [showdesc, setshowdesc] = useState(false);
@@ -19,9 +20,9 @@ const Blogs = () => {
       const response = await axios.get(
         `${import.meta.env.VITE_DEV_URL}api/blogs`
       );
-      console.log(response.data);
+      // console.log(response.data);
       setblogs(response.data);
-      console.log(blogs);
+      
     } catch (error) {
       console.error("Error ", error);
     }
@@ -34,7 +35,7 @@ const Blogs = () => {
       axios
         .post(`${import.meta.env.VITE_DEV_URL}api/blog/${id}`)
         .then((response) => {
-          console.log(response)
+          // console.log(response)
           navigate(`/blog/${id}`)
 
         })
@@ -48,19 +49,18 @@ const Blogs = () => {
     fetchData();
   }, []);
 
-  // function dateFormat(date) {
-  //   const month = date.getMonth();
-  //   const day = date.getDate();
-  //   const monthString = month >= 10 ? month : `0${month}`;
-  //   const dayString = day >= 10 ? day : `0${day}`;
-  //   return `${date.getFullYear()}-${monthString}-${dayString}`;
-  // }
+  
+ 
+  function formatCreatedAt(createdAt) {
+    return moment(createdAt).format('YYYY-MM-DD');
+  }
 
   return (
     <main className="bg-gradient-to-br from-slate-100 to-slate-200 min-h-screen px-10 py-10 space-y-4">
       <h1 className="text-center text-5xl mr-24  mb-10 font-bold">BLOGS</h1>
       <div className="blogss space-y-4">
         {blogs.map((blogg, i) => (
+          
           <div
             key={i}
             className="blogs mx-32 p-8 border-black rounded-xl border-2 "
@@ -81,7 +81,7 @@ const Blogs = () => {
                   {truncateString(blogg.BlogTitle, 50)}
                 </h1>
                 <p className="text-2xl mt-5">
-                  {/* <span>{dateFormat(blogg.createdAt)} - </span> */}
+                  <span className="text-gray-500">{formatCreatedAt(blogg.createdAt)} - </span>
                   {truncateString(blogg.blog, 200)}
                 </p>
                 <button
