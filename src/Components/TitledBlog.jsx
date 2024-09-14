@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { CiCirclePlus } from "react-icons/ci";
 import { useParams } from "react-router-dom";
 import moment from "moment";
+import Swal from "sweetalert2";
 
 const TitledBlog = () => {
   const { id } = useParams();
@@ -11,6 +12,8 @@ const TitledBlog = () => {
   const [showcomment, setshowcomment] = useState(false);
   const [Name, setName] = useState("");
   const [comment, setComment] = useState("");
+
+  const [cmtcnt, setcmtcnt] = useState(0)
 
   const [blogcomments, setblogcomments] = useState([])
 
@@ -21,7 +24,7 @@ const TitledBlog = () => {
       axios
         .post(`${import.meta.env.VITE_DEV_URL}api/blog/${id}`)
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           setblogs(res.data);
         })
         .catch((error) => console.error("Error ", error));
@@ -36,6 +39,7 @@ const TitledBlog = () => {
       .then(res=>{
         console.log(res.data)
         setblogcomments(res.data)
+        
       })
     } catch (error) {
       
@@ -54,10 +58,19 @@ const TitledBlog = () => {
         BlogId: id,
         Name,
         comment,
+
       })
 
       .then((res) => {
         console.log(res.data);
+        setName("")
+        setComment("")
+        Swal.fire({
+          title: "Thank You!!",
+          text: "Comment added Successfully",
+          icon: "success"
+        });
+        window.location.reload()
       })
       .catch((error) => console.error("Error ", error));
   };
@@ -80,9 +93,11 @@ const TitledBlog = () => {
       </div>
       <div className="addcomment  w-full py-[20%] px-[10%] ">
         <div className="text-xl flex items-center justify-center text-blue-600">
-          <button onClick={() => setshowcomment(!showcomment)}>Comment</button>
+         {/* <span className="text-blue-500 px-3">{cmtcnt}</span>  */}
+         <button onClick={() => setshowcomment(!showcomment)}>Comment</button>
           <button
             onClick={() => setaddcomment(!addcomment)}
+            
             className=" text-white font-bold px-2 py-1 hover:rotate-180 transition-all rounded-lg"
           >
             <CiCirclePlus className="text-5xl font-bold text-black" />

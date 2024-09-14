@@ -1,9 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Card from "./Card";
 import axios from "axios";
 import moment from "moment";
+import { useInView } from "framer-motion";
 
 const TopBlogs = () => {
+  const [first, setfirst] = useState(false)
+  const ref = useRef(null);
+  const isInView = useInView(ref, { 
+    once: true 
+
+  });
+
   function truncateString(str, len) {
     return str.length > len ? str.substr(0, len - 3) + "..." : str;
   }
@@ -27,23 +35,45 @@ const TopBlogs = () => {
   }
 
   return (
-    <section className="px-20 bg-gradient-to-br from-slate-100 to-slate-200  w-full h-screen py-10 ">
-      <h1 className="text-center text-5xl font-bold font-Roboto">
-        Our Top Blogs
-      </h1>
-      <div className="cards flex justify-center items-center gap-4 mt-20 ">
-        {blogs.map((blogg, i) => (
-          <div key={i} hidden={i > 2}>
-            <Card
-              img={blogg.Image}
-              title={blogg.BlogTitle}
-              message={truncateString(blogg.blog, 300)}
-              date={formatCreatedAt(blogg.createdAt)}
-              id={blogg._id}
-            />
-          </div>
-        ))}
-        {/* <Card/> */}
+    <section
+      ref={ref}
+      className="px-20 bg-gradient-to-br from-slate-100 to-slate-200  w-full h-screen py-10 "
+    >
+      <div
+        style={{
+          transform: isInView ? "none" : "translateX(-200px)",
+          opacity: isInView ? "1" : "0",
+          transition: "all 1s cubic-bezier(0.17, 0.55, 0.55, 1) 0.4s ",
+        }}
+        className="p-10 m-10 "
+      >
+        <h1 className="text-center text-5xl font-bold font-Roboto">
+          Our Top Blogs
+        </h1>
+        <div className="cards flex justify-center items-center gap-4 mt-20 ">
+          {blogs.map((blogg, i) => (
+            <div
+            style={{
+              transform: isInView ? "none" : "translateY(100px)",
+              opacity: isInView ? "1" : "0",
+              transition: "all 0.8s cubic-bezier(0.17, 0.55, 0.55, 1) 1s ",
+              scale:isInView?"1":"0",
+              
+            }}
+            
+            key={i} hidden={i > 2}>
+              <Card
+                
+                img={blogg.Image}
+                title={blogg.BlogTitle}
+                message={truncateString(blogg.blog, 300)}
+                date={formatCreatedAt(blogg.createdAt)}
+                id={blogg._id}
+              />
+            </div>
+          ))}
+          {/* <Card/> */}
+        </div>
       </div>
     </section>
   );

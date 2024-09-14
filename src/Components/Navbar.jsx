@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { RiShutDownLine } from "react-icons/ri";
@@ -16,7 +17,12 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex justify-between py-5 px-32 text-3xl bg-salte-200">
+    <motion.nav
+      initial={{ scale: 0, y: 50, opacity: 0 }}
+      animate={{ scale: 1, y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+      className="flex justify-between sticky top-0 z-[999] py-2 bg-slate-100 px-32 text-3xl "
+    >
       <ul className="flex justify-center items-center gap-10 ">
         <a
           href="/"
@@ -24,7 +30,7 @@ const Navbar = () => {
         >
           Home
         </a>
-        {/* <a href="/about" className="cursor-pointer hover:shadow-md hover:bg-slate-200 px-2 py-1 rounded-lg">About</a> */}
+
         <a
           href="/blogs"
           className="cursor-pointer hover:shadow-md hover:bg-slate-200 px-2 py-1 rounded-lg"
@@ -32,14 +38,9 @@ const Navbar = () => {
           Blogs
         </a>
       </ul>
-      <h1
-        href="/"
-        className="text-6xl font-light tracking-tighter leading-none font-sans cursor-pointer"
-      >
-        Let's<span className="font-extrabold">TALK</span>
-      </h1>
+
+      <img className="h-20 invert" src="./logo-removebg-preview.png" alt="" />
       <div className="flex justify-center items-center gap-3">
-       
         {Username && LoggedIn && <h1>Hello! {Username}</h1>}
         {LoggedIn ? (
           <button
@@ -56,10 +57,8 @@ const Navbar = () => {
             Login
           </a>
         )}
-
-        
       </div>
-    </nav>
+    </motion.nav>
   );
 };
 

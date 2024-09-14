@@ -3,8 +3,25 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import TitledBlog from "./TitledBlog";
 import moment from 'moment';
+import { motion, stagger } from "framer-motion";
+
 
 const Blogs = () => {
+  const left={
+    hidden:{
+      opacity:0,
+      x:-1000,
+      // scale:0
+
+    },
+    show:{
+      opacity:1,
+      x:0,
+      // scale:1
+      
+    },
+    
+  }
   const [showdesc, setshowdesc] = useState(false);
   // const [blogId, setblogId] = useState("");
   const navigate=useNavigate()
@@ -61,7 +78,11 @@ const Blogs = () => {
       <div className="blogss space-y-4">
         {blogs.map((blogg, i) => (
           
-          <div
+          <motion.div
+          variants={left}
+          initial="hidden"
+          animate="show"
+          transition={{delay:0.9}}
             key={i}
             className="blogs mx-32 p-8 border-black rounded-xl border-2 "
           >
@@ -91,14 +112,10 @@ const Blogs = () => {
                   Read more ...
                 </button>
 
-                {showdesc && (
-                  <div className="description">
-                    <p className="text-xl mt-3 ">{blogg.blog}</p>
-                  </div>
-                )}
+                
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </main>

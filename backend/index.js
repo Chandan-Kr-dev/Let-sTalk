@@ -114,7 +114,7 @@ app.get("/api/blogs", async (req, res) => {
 });
 
 app.post("/api/blog/:id", (req, res) => {
-  console.log(req.params.id);
+  // console.log(req.params.id);
 
   try {
     Blog.findById(req.params.id)
@@ -129,7 +129,7 @@ app.post("/api/blog/:id", (req, res) => {
 
 app.post("/api/comments", (req, res) => {
   const { BlogId, Name, comment } = req.body;
-  console.log(req.body)
+  // console.log(req.body)
   Comment.create({ Name, BlogId, Comment: comment })
     .then(() => {
       res.json("Comment created succesfully");

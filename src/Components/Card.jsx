@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useInView } from "framer-motion";
 
 const Card = (props) => {
   const navigate = useNavigate();
+
+ 
 
   const specificData = (id) => {
     // e.preventDefault()
@@ -22,7 +25,8 @@ const Card = (props) => {
   };
 
   return (
-    <div className="flex flex-col justify-between  bg-slate-200 w-[450px] min-h-[600px] p-5 rounded-lg shadow-lg shadow-black hover:-translate-y-5 cursor-pointer transition ease-linear">
+    <div 
+     className="flex flex-col justify-between  bg-slate-200 w-[450px] min-h-[600px] p-5 rounded-lg shadow-lg shadow-black hover:-translate-y-5 cursor-pointer transition ease-linear">
       <div>
         <img
           className="rounded-lg  w-full bg-cover object-contain"

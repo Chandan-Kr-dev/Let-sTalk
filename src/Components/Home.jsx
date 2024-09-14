@@ -5,12 +5,14 @@ import AddBlog from './AddBlog'
 
 
 
+
 const Home = () => {
+ 
   return (
     <main>
       
         <Landing />
-        <TopBlogs />
+        <TopBlogs  />
         <section id="AddBlog">
           <AddBlog />
         </section>
