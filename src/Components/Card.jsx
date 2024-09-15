@@ -46,7 +46,7 @@ const Card = (props) => {
           Read More....
         </button>
 
-        <a href="/blogs">Comments..</a>
+    
       </div>
     </div>
   );

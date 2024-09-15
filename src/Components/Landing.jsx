@@ -1,9 +1,12 @@
 import { easeInOut, easeOut, motion, stagger } from "framer-motion";
+import LocomotiveScroll from "locomotive-scroll";
 
 import React, { useEffect, useRef, useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
 
+
 const Landing = () => {
+  const scroll=new LocomotiveScroll()
 
   const container = {
     hidden: { 
@@ -41,14 +44,13 @@ const Landing = () => {
             everything in between. Discover new ideas, learn something new, and
             find inspiration in every post.
           </motion.p>
-          <motion.a
+          <motion.button
           initial={{x:-1000,opacity:0}}
           animate={{x:0,opacity:1}}
           transition={{duration:0.9,delay:0.2,ease:[0.61, 1, 0.88, 1]}}
             
-            href="#AddBlog"
-            onMouseOver={() => sethoverblog(true)}
-            onMouseLeave={() => sethoverblog(false)}
+            onClick={()=>scroll.scrollTo("#AddBlog")}
+            
             className="btnblog w-96  hover:shadow-md hover:text-2xl transition-all rounded-lg  flex justify-center items-center gap-2 bg-gradient-to-tr from-yellow-100 to-yellow-200 px-2 py-1 mt-20 text-xl"
           >
             Create your first Blog Now{" "}
@@ -57,7 +59,7 @@ const Landing = () => {
                 className={hoverblog && " rotate-90 transition-all text-4xl"}
               />
             </span>
-          </motion.a>
+          </motion.button>
         </div>
         <motion.div
         initial={{y:200,opacity:0,scale:1.5}}

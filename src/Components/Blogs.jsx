@@ -27,10 +27,24 @@ const Blogs = () => {
   const navigate=useNavigate()
 
   const [blogs, setblogs] = useState([]);
+  const [blogcomments, setblogcomments] = useState([])
 
   function truncateString(str, len) {
     return str.length > len ? str.substr(0, len - 3) + "..." : str;
   }
+
+  const fetchComments=async()=>{
+    try {
+      await axios.get(`${import.meta.env.VITE_DEV_URL}api/getComments`)
+      .then(res=>{
+        // console.log(res.data)
+        setblogcomments(res.data)
+         })
+    } catch (error) {
+      console.error("Server Error",error )
+    }
+  }
+
 
   const fetchData = async () => {
     try {
@@ -64,6 +78,7 @@ const Blogs = () => {
 
   useEffect(() => {
     fetchData();
+    fetchComments()
   }, []);
 
   
@@ -113,6 +128,9 @@ const Blogs = () => {
                 </button>
 
                 
+              </div>
+              <div className="right  relative ">
+                <span className="absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%] underline text-2xl ">{blogcomments.filter(comment => comment.BlogId === blogg._id).length} Comments</span>
               </div>
             </div>
           </motion.div>

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useInView } from "framer-motion";
 import React, { useRef, useState } from "react";
+import Swal from "sweetalert2";
 
 const AddBlog = () => {
   const [Name, setName] = useState("");
@@ -49,14 +50,19 @@ const AddBlog = () => {
           blog,
         })
         .then((response) => {
-          alert(response.data);
+          
+          Swal.fire({
+            title: "Thank You!!",
+          text: "Blog added Successfully",
+          icon: "success"
+          })
           setName("");
           setEmail("");
           setBlog("");
           setTitle("");
           setimage(null);
           setimageurl("");
-          window.location.reload();
+          
         });
     } catch (error) {
       console.error(error);

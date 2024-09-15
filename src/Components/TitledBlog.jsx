@@ -4,6 +4,10 @@ import { CiCirclePlus } from "react-icons/ci";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 import Swal from "sweetalert2";
+import { motion } from "framer-motion";
+import { easeInOut } from "framer-motion/dom";
+import { split } from "postcss/lib/list";
+
 
 const TitledBlog = () => {
   const { id } = useParams();
@@ -18,6 +22,10 @@ const TitledBlog = () => {
   const [blogcomments, setblogcomments] = useState([])
 
   const [blogs, setblogs] = useState([]);
+
+  function truncateString(str, len) {
+    return str.length > len ? str.substr(0, len - 3) + "..." : str;
+  }
 
   const fetchData = () => {
     try {
@@ -37,12 +45,11 @@ const TitledBlog = () => {
     try {
       await axios.get(`${import.meta.env.VITE_DEV_URL}api/getComments`)
       .then(res=>{
-        console.log(res.data)
+        // console.log(res.data)
         setblogcomments(res.data)
-        
-      })
+         })
     } catch (error) {
-      
+      console.error("Server Error",error )
     }
   }
 
@@ -50,6 +57,13 @@ const TitledBlog = () => {
     fetchData();
     fetchComments()
   }, []);
+
+  useEffect(() => {
+    if (blogcomments.length > 0) { // Check if comments are available
+      const count = blogcomments.filter(comment => comment.BlogId === id).length;
+      setcmtcnt(count);
+    }
+  }, [blogcomments, id])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -75,25 +89,34 @@ const TitledBlog = () => {
       .catch((error) => console.error("Error ", error));
   };
 
+
+  
   const formattedDate = moment(blogs.createdAt).format("YYYY-MM-DD");
 
   return (
     <main className="bg-gradient-to-br from-slate-100 to-slate-200 px-80  ">
       <div className=" space-y-10  pt-20">
-        <h1 className="text-center font-bold text-5xl font-Space_Grotesk">{blogs.BlogTitle}</h1>
+        <motion.h1 initial={{y:-1000,opacity:0}} animate={{y:0,opacity:1}} transition={{duration:0.9,ease:easeInOut}} className="text-center font-bold text-5xl font-Space_Grotesk">{blogs.BlogTitle}</motion.h1>
+        <motion.div
+          initial={{x:-1000,opacity:0}}
+          animate={{x:0,opacity:1}}
+          transition={{delay:0.3,duration:0.5,easeInOut}}
+        >
         <img
           className="object-contain rounded-lg w-[800px] ml-56"
           src={blogs.Image}
           alt=""
         />
-        <p className="text-2xl">
+        </motion.div>
+        
+        <motion.p initial={{x:1000,opacity:0}} animate={{x:0,opacity:1}} transition={{delay:0.8,duration:0.4,easeInOut}} className="text-2xl">
           <span className=" text-gray-500">{formattedDate} - </span>
           {blogs.blog}
-        </p>
+        </motion.p>
       </div>
       <div className="addcomment  w-full py-[20%] px-[10%] ">
         <div className="text-xl flex items-center justify-center text-blue-600">
-         {/* <span className="text-blue-500 px-3">{cmtcnt}</span>  */}
+         <span className="text-blue-500 px-3">{cmtcnt}</span> 
          <button onClick={() => setshowcomment(!showcomment)}>Comment</button>
           <button
             onClick={() => setaddcomment(!addcomment)}
@@ -148,13 +171,17 @@ const TitledBlog = () => {
           {blogcomments.map((com)=>(
 
               <div key={com._id} hidden={com.BlogId !==id}  className="comment mt-3 border-b-2 border-black pb-2">
-              <h1 className="">
-                <span className="text-xl font-bold text-blue-500">Name : </span>
-                {com.Name}
+                <div className="left flex gap-10 items-center">
+
+              <h1 className="uppercase bold text-2xl ">
+                
+                {com.Name} <span className="lowercase">wrote</span>
               </h1>
+              <h3>({moment(com.createdAt).format('YYYY-MM-DD')})</h3>
+                </div>
               <p>
-                <span className="text-red-600 font-bold text-xl">Comment :</span>{" "}
-                {com.Comment}
+                <span className="text-zinc-500 font-bold text-xl">{truncateString(com.Comment,100)}</span>{" "}
+                
               </p>
             </div>
           ))}
