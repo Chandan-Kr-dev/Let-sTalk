@@ -88,8 +88,8 @@ const Blogs = () => {
   }
 
   return (
-    <main className="bg-gradient-to-br from-slate-100 to-slate-200 min-h-screen px-10 py-10 space-y-4">
-      <h1 className="text-center text-5xl mr-24  mb-10 font-bold">BLOGS</h1>
+    <main className="bg-gradient-to-br from-slate-100 to-slate-200 min-h-screen md:px-10 px-2 py-10 space-y-4">
+      <h1 className="text-center md:text-5xl text-2xl  md:mr-24  mb-10 font-bold">BLOGS</h1>
       <div className="blogss space-y-4">
         {blogs.map((blogg, i) => (
           
@@ -99,30 +99,30 @@ const Blogs = () => {
           animate="show"
           transition={{delay:0.9}}
             key={i}
-            className="blogs mx-32 p-8 border-black rounded-xl border-2 "
+            className="blogs md:mx-32 p-8 border-black rounded-xl border-2 "
           >
-            <div className="w-full min-h-96  grid grid-cols-4 ">
+            <div className="w-full min-h-96  md:grid md:grid-cols-4 ">
               <div className="left  w-full  ">
                 <img
-                  className="h-96 w-full bg-cover  rounded-lg  object-contain"
+                  className="md:h-96 w-full bg-cover  rounded-lg  object-contain"
                   src={blogg.Image}
                   alt=""
                 />
               </div>
-              <div className="right  w-full col-span-2  p-10">
-                <h1 className="text-3xl mb-3">
+              <div className="right  w-full col-span-2  md:p-10 p-3">
+                <h1 className="md:text-3xl text-sm mb-3">
                   Name wrote :<span className="font-bold"> {blogg.Name}</span>{" "}
                 </h1>
-                <h1 className="text-4xl font-bold">
+                <h1 className="md:text-4xl text-xl text-center font-bold">
                   {truncateString(blogg.BlogTitle, 50)}
                 </h1>
-                <p className="text-2xl mt-5">
+                <p className="md:text-2xl text-xs mt-5">
                   <span className="text-gray-500">{formatCreatedAt(blogg.createdAt)} - </span>
                   {truncateString(blogg.blog, 200)}
                 </p>
                 <button
                   onClick={() => specificData(blogg._id)}
-                  className="text-2xl border-b-2 border-blue-400 mt-3 "
+                  className="md:text-2xl text-xs border-b-2 border-blue-400 mt-3 "
                 >
                   Read more ...
                 </button>
@@ -130,7 +130,7 @@ const Blogs = () => {
                 
               </div>
               <div className="right  relative ">
-                <span className="absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%] underline text-2xl ">{blogcomments.filter(comment => comment.BlogId === blogg._id).length} Comments</span>
+                <span className="absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%] underline md:text-2xl text-xs ">{blogcomments.filter(comment => comment.BlogId === blogg._id).length} Comments</span>
               </div>
             </div>
           </motion.div>

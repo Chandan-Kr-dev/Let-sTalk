@@ -94,28 +94,28 @@ const TitledBlog = () => {
   const formattedDate = moment(blogs.createdAt).format("YYYY-MM-DD");
 
   return (
-    <main className="bg-gradient-to-br from-slate-100 to-slate-200 px-80  ">
+    <main className="bg-gradient-to-br from-slate-100 to-slate-200 md:px-80 px-5  ">
       <div className=" space-y-10  pt-20">
-        <motion.h1 initial={{y:-1000,opacity:0}} animate={{y:0,opacity:1}} transition={{duration:0.9,ease:easeInOut}} className="text-center font-bold text-5xl font-Space_Grotesk">{blogs.BlogTitle}</motion.h1>
+        <motion.h1 initial={{y:-1000,opacity:0}} animate={{y:0,opacity:1}} transition={{duration:0.9,ease:easeInOut}} className="text-center font-bold md:text-5xl text-2xl font-Space_Grotesk">{blogs.BlogTitle}</motion.h1>
         <motion.div
           initial={{x:-1000,opacity:0}}
           animate={{x:0,opacity:1}}
           transition={{delay:0.3,duration:0.5,easeInOut}}
         >
         <img
-          className="object-contain rounded-lg w-[800px] ml-56"
+          className="object-contain rounded-lg md:w-[800px] w-[300px] md:ml-56 "
           src={blogs.Image}
           alt=""
         />
         </motion.div>
         
-        <motion.p initial={{x:1000,opacity:0}} animate={{x:0,opacity:1}} transition={{delay:0.8,duration:0.4,easeInOut}} className="text-2xl">
+        <motion.p initial={{x:1000,opacity:0}} animate={{x:0,opacity:1}} transition={{delay:0.8,duration:0.4,easeInOut}} className="md:text-2xl ">
           <span className=" text-gray-500">{formattedDate} - </span>
           {blogs.blog}
         </motion.p>
       </div>
       <div className="addcomment  w-full py-[20%] px-[10%] ">
-        <div className="text-xl flex items-center justify-center text-blue-600">
+        <div className="md:text-xl flex items-center justify-center text-blue-600">
          <span className="text-blue-500 px-3">{cmtcnt}</span> 
          <button onClick={() => setshowcomment(!showcomment)}>Comment</button>
           <button
@@ -123,18 +123,18 @@ const TitledBlog = () => {
             
             className=" text-white font-bold px-2 py-1 hover:rotate-180 transition-all rounded-lg"
           >
-            <CiCirclePlus className="text-5xl font-bold text-black" />
+            <CiCirclePlus className="md:text-5xl text-xl font-bold text-black" />
           </button>
         </div>
         {addcomment && (
           <div className="addcommentbelow">
             <form onSubmit={handleSubmit} className="space-y-4" action="#">
               <div className="input grid grid-cols-3">
-                <label className="text-xl font-semibold" htmlFor="">
+                <label className="md:text-xl text-sm font-semibold" htmlFor="">
                   Name :{" "}
                 </label>
                 <input
-                  className="col-span-2 rounded-lg outline-none px-2 py-1 text-xl"
+                  className="col-span-2 rounded-lg outline-none px-2 py-1 md:text-xl text-sm"
                   type="text"
                   name="Name"
                   value={Name}
@@ -142,11 +142,11 @@ const TitledBlog = () => {
                 />
               </div>
               <div className="input grid grid-cols-3">
-                <label className="text-xl font-semibold" htmlFor="">
+                <label className="md:text-xl text-sm font-semibold" htmlFor="">
                   Comment :{" "}
                 </label>
                 <textarea
-                  className="col-span-2 rounded-lg outline-none  px-2 py-1 text-xl"
+                  className="col-span-2 rounded-lg outline-none  px-2 py-1 md:text-xl text-sm"
                   rows={5}
                   cols={20}
                   id=""
@@ -157,7 +157,7 @@ const TitledBlog = () => {
               </div>
               <div className="flex justify-center">
                 <button
-                  className=" bg-gradient-to-bl from-blue-500 to-pink-300 px-2 py-1 text-xl font-bold text-white rounded-lg"
+                  className=" bg-gradient-to-bl from-blue-500 to-pink-300 px-2 py-1 md:text-xl text-sm font-bold text-white rounded-lg"
                   type="submit"
                 >
                   Submit
@@ -173,14 +173,14 @@ const TitledBlog = () => {
               <div key={com._id} hidden={com.BlogId !==id}  className="comment mt-3 border-b-2 border-black pb-2">
                 <div className="left flex gap-10 items-center">
 
-              <h1 className="uppercase bold text-2xl ">
+              <h1 className="uppercase bold md:text-2xl  ">
                 
                 {com.Name} <span className="lowercase">wrote</span>
               </h1>
-              <h3>({moment(com.createdAt).format('YYYY-MM-DD')})</h3>
+              <h3 className="text-gray-600">({moment(com.createdAt).format('YYYY-MM-DD')})</h3>
                 </div>
               <p>
-                <span className="text-zinc-500 font-bold text-xl">{truncateString(com.Comment,100)}</span>{" "}
+                <span className="text-zinc-500 font-bold md:text-xl text-xs">{truncateString(com.Comment,100)}</span>{" "}
                 
               </p>
             </div>

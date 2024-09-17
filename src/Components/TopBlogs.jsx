@@ -26,6 +26,8 @@ const TopBlogs = () => {
     });
   };
 
+  
+
   useEffect(() => {
     fetchdata();
   }, []);
@@ -37,7 +39,7 @@ const TopBlogs = () => {
   return (
     <section
       ref={ref}
-      className="px-20 bg-gradient-to-br from-slate-100 to-slate-200  w-full h-screen py-10 "
+      className="md:px-20 bg-gradient-to-br from-slate-100 to-slate-200  w-full min-h-screen md:py-10 py-5 "
     >
       <div
         style={{
@@ -47,10 +49,10 @@ const TopBlogs = () => {
         }}
         className="p-10 m-10 "
       >
-        <h1 className="text-center text-5xl font-bold font-Roboto">
+        <h1 className="text-center md:text-5xl text-2xl font-bold font-Roboto">
           Our Top Blogs
         </h1>
-        <div className="cards flex justify-center items-center gap-4 mt-20 ">
+        <div className="cards flex md:flex-row flex-col justify-center items-center gap-4 mt-20 ">
           {blogs.map((blogg, i) => (
             <div
             style={{

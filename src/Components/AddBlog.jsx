@@ -10,28 +10,24 @@ const AddBlog = () => {
   const [imageurl, setimageurl] = useState("");
   const [Title, setTitle] = useState("");
   const [blog, setBlog] = useState("");
+  const [uploading, setuploading] = useState(false)
 
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
 
-  const [cloudName, setcloudName] = useState(import.meta.env.CLOUDINARY_CLOUD_NAME)
-
-  // const cloudName=import.meta.env.CLOUDINARY_CLOUD_NAME
-  console.log(cloudName);
-  console.log(import.meta.env)
-
   const uploadImage = async (e) => {
+    setuploading(true)
     e.preventDefault();
     const data = new FormData();
     data.append("file", image);
     data.append("upload_preset", "myCloud");
-    data.append("cloud_name", cloudName);
+    data.append("cloud_name", "dcn17cw7n");
     try {
       if (image === null) {
         return alert("Please upload an image");
       }
       const res = await axios.post(
-        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+        "https://api.cloudinary.com/v1_1/dcn17cw7n/image/upload",
         data
       );
 
@@ -39,6 +35,7 @@ const AddBlog = () => {
       //   console.log(res.data.url);
       // Toast.success()
       alert("image uploaded successfully");
+      setuploading(false)
     } catch (error) {
       console.error("An error occurred while uploading",error);
     }
@@ -78,7 +75,7 @@ const AddBlog = () => {
   return (
     <section
       ref={ref}
-      className="bg-gradient-to-br from-slate-100 to-slate-200  "
+      className="bg-gradient-to-br from-slate-100 to-slate-200 min-h-screen w-full "
     >
       <div
         style={{
@@ -86,9 +83,9 @@ const AddBlog = () => {
           opacity: isInView ? "1" : "0",
           transition: "all 1s cubic-bezier(0.65, 0, 0.35, 1) 0.4s ",
         }}
-        className="w-full h-screen px-20 py-10 relative"
+        className="w-full min-h-screen md:px-20 px-5 py-10 relative"
       >
-        <h1 className="text-center text-5xl font-bold">Add A Blog</h1>
+        <h1 className="text-center md:text-5xl  text-xs font-bold">Add A Blog</h1>
         <form
           style={{
             
@@ -96,15 +93,15 @@ const AddBlog = () => {
             opacity: isInView ? "1" : "0",
             transition: "all 1s cubic-bezier(0.83, 0, 0.17, 1) 0.8s",
           }}
-          className="bg-gray-50 shadow-md shadow-black p-10 w-[900px] space-y-5 absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%] rounded-lg"
+          className="bg-gray-50 shadow-md shadow-black md:p-10 p-4 md:w-[900px] w-[400px] space-y-5 absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%] rounded-lg"
           action=""
         >
           <div className="input grid grid-cols-3">
-            <label className="text-4xl" htmlFor="">
+            <label className="md:text-4xl text-xl " htmlFor="">
               Name :{" "}
             </label>
             <input
-              className="text-2xl px-3 py-2 col-span-2 rounded-lg outline-none  shadow-md"
+              className="md:text-2xl text-xs  md:px-3 md:py-2 col-span-2 rounded-lg outline-none  shadow-md"
               type="text"
               name="Name"
               value={Name}
@@ -112,49 +109,51 @@ const AddBlog = () => {
             />
           </div>
           <div className="input grid grid-cols-3">
-            <label className="text-4xl" htmlFor="">
+            <label className="md:text-4xl text-xl" htmlFor="">
               Email :{" "}
             </label>
             <input
               value={Email}
               onChange={(e) => setEmail(e.target.value)}
-              className="text-2xl px-3 py-2 col-span-2 rounded-lg outline-none shadow-md"
+              className="md:text-2xl text-xs px-3 py-2 col-span-2 rounded-lg outline-none shadow-md"
               type="email"
               name="Email"
             />
           </div>
           <div className="input grid grid-cols-3">
-            <label className="text-4xl" htmlFor="">
+            <label className="md:text-4xl text-xl" htmlFor="">
               Image :{" "}
             </label>
             <input
               onChange={(e) => setimage(e.target.files[0])}
-              className="text-xl  rounded-lg outline-none "
+              className="md:text-xl text-[10px]  rounded-lg outline-none "
               type="file"
               name="image"
               id="file-upload"
             />
             <button
               onClick={uploadImage}
-              className="bg-blue-600  text-white rounded-lg  font-bold shadow-md"
+              disabled={uploading}
+              className="bg-blue-600 text-xs  text-white rounded-lg  font-bold shadow-md"
             >
-              Upload
+              {uploading ?(<span>Uploading</span>):(<span>Upload</span>)}
+            
             </button>
           </div>
           <div className="input grid grid-cols-3">
-            <label className="text-4xl" htmlFor="">
+            <label className="md:text-4xl text-xl" htmlFor="">
               Blog Title :{" "}
             </label>
             <input
               value={Title}
               onChange={(e) => setTitle(e.target.value)}
-              className="text-2xl px-3 py-2 col-span-2 rounded-lg outline-none shadow-md"
+              className="md:text-2xl text-xs px-3 py-2 col-span-2 rounded-lg outline-none shadow-md"
               type="text"
               name="Title"
             />
           </div>
           <div className="input grid grid-cols-3">
-            <label className="text-4xl" htmlFor="">
+            <label className="md:text-4xl text-xl" htmlFor="">
               Blog :{" "}
             </label>
             <textarea
@@ -162,7 +161,7 @@ const AddBlog = () => {
               onChange={(e) => setBlog(e.target.value)}
               rows={10}
               cols={20}
-              className="text-2xl px-3 py-2 col-span-2 rounded-lg outline-none shadow-md"
+              className="md:text-2xl text-xs px-3 py-2 col-span-2 rounded-lg outline-none shadow-md"
               type="text"
               name="blog"
             />
@@ -170,9 +169,11 @@ const AddBlog = () => {
           <button
             onClick={handleSubmit}
             type="submit"
-            className="bg-gradient-to-tr from-blue-400 to-blue-900 text-white px-2 py-1 text-2xl rounded-lg font-semibold translate-x-[400px]"
+            disabled={uploading}
+            className="bg-gradient-to-tr from-blue-400 to-blue-900 text-white px-2 py-1 md:text-2xl text-xs rounded-lg font-semibold translate-x-[150px] md:translate-x-[400px]"
           >
-            Add Post
+            {uploading?(<span>Uploading Image</span>):(<span>Add Post</span>)}
+            
           </button>
         </form>
       </div>
