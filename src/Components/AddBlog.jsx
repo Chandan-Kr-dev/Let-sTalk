@@ -14,18 +14,24 @@ const AddBlog = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
 
+  const [cloudName, setcloudName] = useState(import.meta.env.CLOUDINARY_CLOUD_NAME)
+
+  // const cloudName=import.meta.env.CLOUDINARY_CLOUD_NAME
+  console.log(cloudName);
+  console.log(import.meta.env)
+
   const uploadImage = async (e) => {
     e.preventDefault();
     const data = new FormData();
     data.append("file", image);
     data.append("upload_preset", "myCloud");
-    data.append("cloud_name", "dcn17cw7n");
+    data.append("cloud_name", cloudName);
     try {
       if (image === null) {
         return alert("Please upload an image");
       }
       const res = await axios.post(
-        "https://api.cloudinary.com/v1_1/dcn17cw7n/image/upload",
+        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
         data
       );
 
@@ -34,7 +40,7 @@ const AddBlog = () => {
       // Toast.success()
       alert("image uploaded successfully");
     } catch (error) {
-      console.error("An error occurred while uploading");
+      console.error("An error occurred while uploading",error);
     }
   };
 
